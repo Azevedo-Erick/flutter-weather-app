@@ -25,7 +25,8 @@ class _HomeState extends State<Home> {
 
   Future getWeather() async {
     http.Response response = await http
-        .get(Uri.parse("https://api.hgbrasil.com/weather?woeid=456011"));
+        .get(Uri.parse("https://api.hgbrasil.com/weather?woeid=457224"));
+    //Woeid -> https://console.hgbrasil.com/documentation/weather/tools
     var results = jsonDecode(response.body);
     setState(() {
       this.temp = results['results']['temp'];
@@ -35,6 +36,17 @@ class _HomeState extends State<Home> {
       this.windSpeed = results['results']['wind_speedy'];
       this.city = results['results']['city'];
     });
+    setBgColor();
+  }
+
+  Color setBgColor() {
+    if (this.temp > 25) {
+      return Colors.red;
+    } else if (this.temp <= 25 && this.temp > 10) {
+      return Colors.blue;
+    } else {
+      return Colors.blue.shade900;
+    }
   }
 
   @override
@@ -55,7 +67,7 @@ class _HomeState extends State<Home> {
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(25),
                   bottomRight: Radius.circular(25)),
-              color: Colors.red,
+              color: setBgColor(),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
