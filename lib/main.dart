@@ -23,9 +23,9 @@ class _HomeState extends State<Home> {
   var windSpeed;
   var city;
 
-  Future getWeather() async {
-    http.Response response = await http
-        .get(Uri.parse("https://api.hgbrasil.com/weather?woeid=457224"));
+  Future getWeather({String id}) async {
+    http.Response response =
+        await http.get(Uri.parse("https://api.hgbrasil.com/weather?woeid=$id"));
     //Woeid -> https://console.hgbrasil.com/documentation/weather/tools
     var results = jsonDecode(response.body);
     setState(() {
@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    this.getWeather();
+    this.getWeather(id: '455819');
   }
 
   @override
@@ -135,6 +135,98 @@ class _HomeState extends State<Home> {
                     windSpeed != null ? windSpeed.toString() : "Carregando..."),
               )
             ]),
+          )),
+          Expanded(
+              child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: ListView(
+              children: <Widget>[
+                ListTile(
+                  tileColor: Colors.white54,
+                  leading: FaIcon(FontAwesomeIcons.home),
+                  title: Text("Açailândia - MA"),
+                  trailing: GestureDetector(
+                    onTap: () {
+                      getWeather(id: '456011');
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(45),
+                        color: Colors.cyanAccent.shade700,
+                      ),
+                      child: FaIcon(
+                        FontAwesomeIcons.plus,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                ListTile(
+                  tileColor: Colors.white54,
+                  leading: FaIcon(FontAwesomeIcons.home),
+                  title: Text("Palmas - TO"),
+                  trailing: GestureDetector(
+                    onTap: () {
+                      getWeather(id: '457721');
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(45),
+                        color: Colors.cyanAccent.shade700,
+                      ),
+                      child: FaIcon(
+                        FontAwesomeIcons.plus,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                ListTile(
+                  tileColor: Colors.white54,
+                  leading: FaIcon(FontAwesomeIcons.home),
+                  title: Text("São Paulo - SP"),
+                  trailing: GestureDetector(
+                    onTap: () {
+                      getWeather(id: '455827');
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(45),
+                        color: Colors.cyanAccent.shade700,
+                      ),
+                      child: FaIcon(
+                        FontAwesomeIcons.plus,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                ListTile(
+                  tileColor: Colors.white54,
+                  leading: FaIcon(FontAwesomeIcons.home),
+                  title: Text("Gramado - RS"),
+                  trailing: GestureDetector(
+                    onTap: () {
+                      getWeather(id: '457224');
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(45),
+                        color: Colors.cyanAccent.shade700,
+                      ),
+                      child: FaIcon(
+                        FontAwesomeIcons.plus,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ))
         ],
       ),
